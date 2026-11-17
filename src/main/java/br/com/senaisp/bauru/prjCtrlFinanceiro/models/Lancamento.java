@@ -3,105 +3,84 @@ package br.com.senaisp.bauru.prjCtrlFinanceiro.models;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-//import br.com.senaisp.bauru.prjCtrlFinanceiro.models.enums.TipoLancamento;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-//import jakarta.persistence.EnumType;
-//import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "lancamentos")
 public class Lancamento {
-    //Fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false)
+ 
+    @Column(nullable = false, length = 200)
     private String descricao;
-    
+ 
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal valor;
-    
-    private LocalDate data_lancamento;
-    
+ 
+    @Column(name = "data_lancamento", nullable = false)
+    private LocalDate dataLancamento;
+ 
+    @Column(length = 500)
     private String observacao;
+ 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
     
-    private Long categoria_id;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
     
-    private Long usuario_id;
-
-    //Constructors
-    public Lancamento() {}
-    
-    public Lancamento(String descricao, BigDecimal valor, LocalDate data_lancamento, String observacao, Long categoria_id, Long usuario_id) {
-            this.descricao = descricao;
-            this.valor = valor;
-            this.data_lancamento = data_lancamento;
-            this.observacao = observacao;
-            this.categoria_id = categoria_id;
-            this.usuario_id = usuario_id;
+    // Construtor vazio, getters e setters
+    public Lancamento() {
     }
-    
-    //Getters e setters
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
 	public BigDecimal getValor() {
 		return valor;
 	}
-
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-
-	public LocalDate getData_lancamento() {
-		return data_lancamento;
+	public LocalDate getDataLancamento() {
+		return dataLancamento;
 	}
-
-	public void setData_lancamento(LocalDate data_lancamento) {
-		this.data_lancamento = data_lancamento;
+	public void setDataLancamento(LocalDate dataLancamento) {
+		this.dataLancamento = dataLancamento;
 	}
-
 	public String getObservacao() {
 		return observacao;
 	}
-
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
-	public Long getCategoria_id() {
-		return categoria_id;
+	public Usuario getUsuario() {
+		return usuario;
 	}
-
-	public void setCategoria_id(Long categoria_id) {
-		this.categoria_id = categoria_id;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-
-	public Long getUsuario_id() {
-		return usuario_id;
+	public Categoria getCategoria() {
+		return categoria;
 	}
-
-	public void setUsuario_id(Long usuario_id) {
-		this.usuario_id = usuario_id;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
-
-}
+	public Long getId() {
+		return id;
+	}
+ }
