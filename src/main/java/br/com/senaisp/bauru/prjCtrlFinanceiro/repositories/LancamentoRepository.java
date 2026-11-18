@@ -10,6 +10,6 @@ import br.com.senaisp.bauru.prjCtrlFinanceiro.models.Lancamento;
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 	
     List<Lancamento> findByUsuarioId(Long usuarioId);
-    Optional<Lancamento> findByUsuarioIdAndId(Long usuarioId, Long id);
+    Optional<Lancamento> findByIdAndUsuarioId(Long id, Long usuarioId);
 }
 
